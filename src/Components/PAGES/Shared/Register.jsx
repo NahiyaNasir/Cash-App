@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 
 import toast from "react-hot-toast";
-import useAxiosCommon from "../../hooks/axiosCommon";
+import useAxiosCommon from "../../../hooks/axiosCommon";
 
 
 const Register = () => {
@@ -30,7 +30,7 @@ const Register = () => {
       const userInfo={name,pin,mobile_number,email,role,status}
         try {
             const res= await  axiosCommon.post('/createUser',userInfo)
-            console.log(res.data);
+            // console.log(res.data);
             if(res.data.insertedId){
              toast.success('user created')
              e.target.reset()

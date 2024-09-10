@@ -1,8 +1,19 @@
-import { useState } from "react";
-import { NavLink, Outlet } from "react-router-dom";
+import { useContext, useState } from "react";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../Routes/AuthProvider";
+import toast from "react-hot-toast";
+import useRole from "../../../hooks/useRole";
+
 
 const Dashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { logOut } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const [role]=useRole()
+  console.log(role);
+  // const role='admin'
+  // if(isLoading)
+  //   return <p>loading....</p>
   return (
     <div>
       <nav className="relative bg-white shadow dark:bg-gray-800">
@@ -67,38 +78,102 @@ const Dashboard = () => {
                 : "opacity-0 -translate-x-full"
             }`}
           >
-            <div className="flex flex-col md:flex-row md:mx-6">
-              <a
-                className="my-2 text-gray-700 transition-colors duration-300 transform dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400 md:mx-4 md:my-0"
-                href="#"
+            {
+              role ==='admin'  ?  <div className="flex flex-col md:flex-row md:mx-6">
+              <NavLink
+                to="/userManagement"
+                className={({ isActive }) =>
+                  isActive
+                    ? "flex items-center gap-x-3 py-2 px-2.5 bg-gray-700 text-sm text-white rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-600"
+                    : "w-full flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-400 rounded-lg hover:bg-gray-800 hover:text-white-300 focus:outline-none focus:ring-1 focus:ring-gray-600"
+                }
               >
-                Home
-              </a>
-              <a
-                className="my-2 text-gray-700 transition-colors duration-300 transform dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400 md:mx-4 md:my-0"
-                href="#"
+          User Management
+              </NavLink>
+              <NavLink
+                to="/systemMonitoring"
+                className={({ isActive }) =>
+                  isActive
+                    ? "flex items-center gap-x-3 py-2 px-2.5 bg-gray-700 text-sm text-white rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-600"
+                    : "w-full flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-400 rounded-lg hover:bg-gray-800 hover:text-white-300 focus:outline-none focus:ring-1 focus:ring-gray-600"
+                }
               >
-                Shop
-              </a>
-              <a
-                className="my-2 text-gray-700 transition-colors duration-300 transform dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400 md:mx-4 md:my-0"
-                href="#"
-              >
-                Contact
-              </a>
-              <a
-                className="my-2 text-gray-700 transition-colors duration-300 transform dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400 md:mx-4 md:my-0"
-                href="#"
-              >
-                About
-              </a>
-            </div>
+               System Monitoring
+              </NavLink>
 
-            <div className="flex  gap-3 md:block">
-              <NavLink to="/login">Login</NavLink>
+             
+              
+            </div>  :
+              <div className="flex flex-col md:flex-row md:mx-6">
+              <NavLink
+                to="/"
+                className={({ isActive }) =>
+                  isActive
+                    ? "flex items-center gap-x-3 py-2 px-2.5 bg-gray-700 text-sm text-white rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-600"
+                    : "w-full flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-400 rounded-lg hover:bg-gray-800 hover:text-white-300 focus:outline-none focus:ring-1 focus:ring-gray-600"
+                }
+              >
+               Case In 
+              </NavLink>
+              <NavLink
+                to="/"
+                className={({ isActive }) =>
+                  isActive
+                    ? "flex items-center gap-x-3 py-2 px-2.5 bg-gray-700 text-sm text-white rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-600"
+                    : "w-full flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-400 rounded-lg hover:bg-gray-800 hover:text-white-300 focus:outline-none focus:ring-1 focus:ring-gray-600"
+                }
+              >
+         Case Out
+              </NavLink>
 
-              <NavLink to="/register">Register</NavLink>
+              <NavLink
+                to="/"
+                className={({ isActive }) =>
+                  isActive
+                    ? "flex items-center gap-x-3 py-2 px-2.5 bg-gray-700 text-sm text-white rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-600"
+                    : "w-full flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-400 rounded-lg hover:bg-gray-800 hover:text-white-300 focus:outline-none focus:ring-1 focus:ring-gray-600"
+                }
+              >
+          Send Money
+              </NavLink>
+              <NavLink
+                to="/"
+                className={({ isActive }) =>
+                  isActive
+                    ? "flex items-center gap-x-3 py-2 px-2.5 bg-gray-700 text-sm text-white rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-600"
+                    : "w-full flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-400 rounded-lg hover:bg-gray-800 hover:text-white-300 focus:outline-none focus:ring-1 focus:ring-gray-600"
+                }
+              >
+             Transaction History
+              </NavLink>
             </div>
+        
+            }
+          
+               <>  <button
+              className=" max-w-52 mx-auto flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-red-500 rounded-lg hover:bg-gray-800 hover:text-white-300 focus:outline-none focus:ring-1 focus:ring-gray-600"
+              onClick={async () => {
+                try {
+                  const res = await logOut();
+                  if (res) {
+                    toast.success("Logged out successfully!");
+                    navigate("/login");
+                  }
+                } catch (error) {
+                  console.error("Logout failed: ", error);
+                  toast.error("Failed to log out. Please try again.");
+                }
+              }}
+              
+            >
+              Log Out
+            </button>
+              </> 
+           
+        
+        
+            
+   
           </div>
         </div>
       </nav>
