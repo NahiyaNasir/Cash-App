@@ -9,11 +9,9 @@ const Dashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { logOut } = useContext(AuthContext);
   const navigate = useNavigate();
-  const [role]=useRole()
-  console.log(role);
-  // const role='admin'
-  // if(isLoading)
-  //   return <p>loading....</p>
+  const [role] = useRole();
+  // console.log(role);
+
   return (
     <div>
       <nav className="relative bg-white shadow dark:bg-gray-800">
@@ -78,107 +76,137 @@ const Dashboard = () => {
                 : "opacity-0 -translate-x-full"
             }`}
           >
-            {
-              role ==='admin'  ?  <div className="flex flex-col md:flex-row md:mx-6">
-              <NavLink
-                to="/userManagement"
-                className={({ isActive }) =>
-                  isActive
-                    ? "flex items-center gap-x-3 py-2 px-2.5 bg-gray-700 text-sm text-white rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-600"
-                    : "w-full flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-400 rounded-lg hover:bg-gray-800 hover:text-white-300 focus:outline-none focus:ring-1 focus:ring-gray-600"
-                }
-              >
-          User Management
-              </NavLink>
-              <NavLink
-                to="/systemMonitoring"
-                className={({ isActive }) =>
-                  isActive
-                    ? "flex items-center gap-x-3 py-2 px-2.5 bg-gray-700 text-sm text-white rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-600"
-                    : "w-full flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-400 rounded-lg hover:bg-gray-800 hover:text-white-300 focus:outline-none focus:ring-1 focus:ring-gray-600"
-                }
-              >
-               System Monitoring
-              </NavLink>
-
-             
-              
-            </div>  :
+            {role === "admin" && (
               <div className="flex flex-col md:flex-row md:mx-6">
-              <NavLink
-                to="/"
-                className={({ isActive }) =>
-                  isActive
-                    ? "flex items-center gap-x-3 py-2 px-2.5 bg-gray-700 text-sm text-white rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-600"
-                    : "w-full flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-400 rounded-lg hover:bg-gray-800 hover:text-white-300 focus:outline-none focus:ring-1 focus:ring-gray-600"
-                }
-              >
-               Case In 
-              </NavLink>
-              <NavLink
-                to="/"
-                className={({ isActive }) =>
-                  isActive
-                    ? "flex items-center gap-x-3 py-2 px-2.5 bg-gray-700 text-sm text-white rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-600"
-                    : "w-full flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-400 rounded-lg hover:bg-gray-800 hover:text-white-300 focus:outline-none focus:ring-1 focus:ring-gray-600"
-                }
-              >
-         Case Out
-              </NavLink>
-
-              <NavLink
-                to="/"
-                className={({ isActive }) =>
-                  isActive
-                    ? "flex items-center gap-x-3 py-2 px-2.5 bg-gray-700 text-sm text-white rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-600"
-                    : "w-full flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-400 rounded-lg hover:bg-gray-800 hover:text-white-300 focus:outline-none focus:ring-1 focus:ring-gray-600"
-                }
-              >
-          Send Money
-              </NavLink>
-              <NavLink
-                to="/"
-                className={({ isActive }) =>
-                  isActive
-                    ? "flex items-center gap-x-3 py-2 px-2.5 bg-gray-700 text-sm text-white rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-600"
-                    : "w-full flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-400 rounded-lg hover:bg-gray-800 hover:text-white-300 focus:outline-none focus:ring-1 focus:ring-gray-600"
-                }
-              >
-             Transaction History
-              </NavLink>
-            </div>
-        
-            }
-          
-               <>  <button
-              className=" max-w-52 mx-auto flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-red-500 rounded-lg hover:bg-gray-800 hover:text-white-300 focus:outline-none focus:ring-1 focus:ring-gray-600"
-              onClick={async () => {
-                try {
-                  const res = await logOut();
-                  if (res) {
-                    toast.success("Logged out successfully!");
-                    navigate("/login");
+                <NavLink
+                  to="/userManagement"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "flex items-center gap-x-3 py-2 px-2.5 bg-gray-700 text-sm text-white rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-600"
+                      : "w-full flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-400 rounded-lg hover:bg-gray-800 hover:text-white-300 focus:outline-none focus:ring-1 focus:ring-gray-600"
                   }
-                } catch (error) {
-                  console.error("Logout failed: ", error);
-                  toast.error("Failed to log out. Please try again.");
-                }
-              }}
-              
-            >
-              Log Out
-            </button>
-              </> 
-           
-        
-        
-            
-   
+                >
+                  User Management
+                </NavLink>
+                <NavLink
+                  to="/systemMonitoring"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "flex items-center gap-x-3 py-2 px-2.5 bg-gray-700 text-sm text-white rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-600"
+                      : "w-full flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-400 rounded-lg hover:bg-gray-800 hover:text-white-300 focus:outline-none focus:ring-1 focus:ring-gray-600"
+                  }
+                >
+                  System Monitoring
+                </NavLink>
+              </div>
+            )}
+            {role === "user" && (
+              <div className="flex flex-col md:flex-row md:mx-6">
+                <NavLink
+                  to="/"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "flex items-center gap-x-3 py-2 px-2.5 bg-gray-700 text-sm text-white rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-600"
+                      : "w-full flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-400 rounded-lg hover:bg-gray-800 hover:text-white-300 focus:outline-none focus:ring-1 focus:ring-gray-600"
+                  }
+                >
+                  Case In
+                </NavLink>
+                <NavLink
+                  to="/"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "flex items-center gap-x-3 py-2 px-2.5 bg-gray-700 text-sm text-white rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-600"
+                      : "w-full flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-400 rounded-lg hover:bg-gray-800 hover:text-white-300 focus:outline-none focus:ring-1 focus:ring-gray-600"
+                  }
+                >
+                  Case Out
+                </NavLink>
+
+                <NavLink
+                  to="/"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "flex items-center gap-x-3 py-2 px-2.5 bg-gray-700 text-sm text-white rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-600"
+                      : "w-full flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-400 rounded-lg hover:bg-gray-800 hover:text-white-300 focus:outline-none focus:ring-1 focus:ring-gray-600"
+                  }
+                >
+                  Send Money
+                </NavLink>
+                <NavLink
+                  to="/"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "flex items-center gap-x-3 py-2 px-2.5 bg-gray-700 text-sm text-white rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-600"
+                      : "w-full flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-400 rounded-lg hover:bg-gray-800 hover:text-white-300 focus:outline-none focus:ring-1 focus:ring-gray-600"
+                  }
+                >
+                  Transaction History
+                </NavLink>
+              </div>
+            )}
+            {role === "agent" && (
+              <div className="flex flex-col md:flex-row md:mx-6">
+                <NavLink
+                  to="/"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "flex items-center gap-x-3 py-2 px-2.5 bg-gray-700 text-sm text-white rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-600"
+                      : "w-full flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-400 rounded-lg hover:bg-gray-800 hover:text-white-300 focus:outline-none focus:ring-1 focus:ring-gray-600"
+                  }
+                >
+                  Transaction Management
+                </NavLink>
+
+                <NavLink
+                  to="/"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "flex items-center gap-x-3 py-2 px-2.5 bg-gray-700 text-sm text-white rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-600"
+                      : "w-full flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-400 rounded-lg hover:bg-gray-800 hover:text-white-300 focus:outline-none focus:ring-1 focus:ring-gray-600"
+                  }
+                >
+                  Balance
+                </NavLink>
+                <NavLink
+                  to="/"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "flex items-center gap-x-3 py-2 px-2.5 bg-gray-700 text-sm text-white rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-600"
+                      : "w-full flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-gray-400 rounded-lg hover:bg-gray-800 hover:text-white-300 focus:outline-none focus:ring-1 focus:ring-gray-600"
+                  }
+                >
+                  Transaction History
+                </NavLink>
+              </div>
+            )}
+            <>
+              {" "}
+              <button
+                className=" max-w-52 mx-auto flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-red-500 rounded-lg hover:bg-gray-800 hover:text-white-300 focus:outline-none focus:ring-1 focus:ring-gray-600"
+                onClick={async () => {
+                  try {
+                    const res = await logOut();
+                    if (res) {
+                      toast.success("Logged out successfully!");
+                      navigate("/login");
+                    }
+                  } catch (error) {
+                    console.error("Logout failed: ", error);
+                    toast.error("Failed to log out. Please try again.");
+                  }
+                }}
+              >
+                Log Out
+              </button>
+            </>
           </div>
         </div>
       </nav>
       <div>
+ 
         <Outlet></Outlet>
+     
       </div>
     </div>
   );

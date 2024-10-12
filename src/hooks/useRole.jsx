@@ -13,11 +13,13 @@ import { AuthContext } from "../Components/Routes/AuthProvider";
         enabled: !loading && !!user?.email,
         queryFn:async()=>{
             const res=await axiosCommon.get(`/role/${user.email}`)
-            console.log(res.data)
-            if (res?.data) {
-              return res?.data;
+            // console.log(res.data.role )
+            if (res?.data.role) {
+              return res?.data.role
+              ;
             } else {
-              console.log("Role is undefined in response", res.data);
+              console.log("Role is undefined in response", res.data.role
+              );
               return undefined; 
            
         }
